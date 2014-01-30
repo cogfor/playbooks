@@ -1,15 +1,4 @@
 ---
-- name: blit.cc key
-  apt_key: url=http://repo.blit.cc/debian/jc-blackflags.gpg.key state=present
-
-- name: base sources
-  apt_repository: repo="{{ item }}" state=present
-  with_items:
-  - deb http://cdn.debian.net/debian/ wheezy main
-  - deb http://security.debian.org/ wheezy/updates main
-  - deb http://cdn.debian.net/debian/ wheezy-updates main
-  - deb http://repo.blit.cc/debian/ wheezy main
-
 - name: iptables config
   template: src=iptables.j2 dest=/etc/iptables.rules
 
@@ -42,6 +31,7 @@
   - unattended-upgrades
   - vim
   - zsh
+  - python-pycurl
 
 - name: create users
   user: name={{ item.username }} shell={{ item.shell }} comment="{{ item.full_name }}" generate_ssh_key=yes
@@ -90,6 +80,10 @@
 - name: create motd scripts
   copy: src=motd/{{ item }} dest=/etc/update-motd.d/{{ item }}
   with_items: motd_scripts
+
+#- name: copy motd.tail
+#  copy: src=etc/{{ item }} dest=/etc/{{ item }}
+#  with_items: motd_scripts
 
 - name: make motd scripts executable
   file: path=/etc/update-motd.d/{{ item }} mode=755

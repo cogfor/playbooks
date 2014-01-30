@@ -1,0 +1,8 @@
+[django]
+test.cogfor.com
+
+[postgres]
+test.cogfor.com
+
+[all:vars]
+env=dapper

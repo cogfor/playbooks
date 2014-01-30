@@ -13,5 +13,5 @@
   file: path=/opt/uwsgi/etc/uwsgi.d/fastrouter.ini owner=nobody group=nogroup
 
 - name: create uwsgi init script
-  template: src=uwsgi_init.j2 dest=/etc/init.d/uwsgi
+  template: src=uwsgi_init.j2 dest=/etc/init.d/uwsgi owner=root group=root mode=0755
   notify: restart uwsgi

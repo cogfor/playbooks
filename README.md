@@ -1,4 +1,4 @@
 playbooks
 =========
 
-Playbooks for Debian 7 "wheezy" servers.
+Playbooks for Cogfor infrastructure.
