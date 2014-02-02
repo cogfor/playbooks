@@ -1,0 +1,11 @@
+[stage]
+33.33.33.33
+
+[django:children]
+stage
+
+[postgres:children]
+stage
+
+[all:vars]
+env=links
