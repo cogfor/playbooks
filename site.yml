@@ -15,6 +15,14 @@
   - node
   - django
 
+- hosts: flask
+  user: root
+  roles:
+  - nginx
+  - python
+  - uwsgi
+  - flask
+
 - hosts: postgres
   user: root
   roles:

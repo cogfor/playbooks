@@ -1,7 +1,4 @@
-[django]
-test.cogfor.com
-
-[postgres]
+[flask]
 test.cogfor.com
 
 [all:vars]

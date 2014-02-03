@@ -1,0 +1,28 @@
+---
+
+- name: deploy code from repository
+  git: repo={{ repo_url }} dest={{ webapps_dir }}/{{ app_name }}/{{ instance_name }} remote={{ repo_remote }} version={{ repo_version }}
+
+- name: install dependencies into virtualenv
+  pip: requirements={{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/requirements.txt virtualenv={{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/.virtualenvs/{{ app_name }}_{{ instance_name }} state=present
+    
+- name: make sure that the ansible_backup directory exsists
+  file: path=/etc/nginx/servers/{{ app_name }} state=directory
+
+- name: create nginx site config
+  template: src=nginx_site.conf dest=/etc/nginx/servers/{{ app_name }}/{{ instance_name }}.conf
+  notify:
+    - restart nginx
+
+- name: create directory for uwsgi
+  file: path={{ webapps_dir }}/{{ app_name }}/{{ instance_name }} state=directory
+
+- name: create uwsgi site config
+  template: src=uwsgi_site.ini dest={{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/uwsgi.ini 
+
+- name: chown uwsgi fastrouter config to nobody
+  file: path={{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/uwsgi.ini owner=nobody group=nogroup
+  notify:
+    - restart uwsgi
+
+
