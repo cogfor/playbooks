@@ -1,5 +1,24 @@
-[flask]
-test.cogfor.com
+[flask:children]
+staging
+
+# Deploy everything remote
+[remote:children]
+production
+staging
+
+# Deploy everything
+[servers:children]
+production
+staging
+local
+
+[production]
+
+[staging]
+test.cogfor.com nickname=staging vm=0 branch=master
+
+[local]
+33.33.33.33 nickname=local vm=1 branch=develop
 
 [all:vars]
-env=dapper
+env=cog4

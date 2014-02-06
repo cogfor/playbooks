@@ -1,0 +1,11 @@
+---
+project_name = cog4
+project_repo = git@github.org:cogfor/cog4.git
+
+webapps_dir = /srv
+app_name = cog4
+instance_name = cog4
+
+system_packages:
+  - build-essential
+

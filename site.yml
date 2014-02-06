@@ -23,6 +23,15 @@
   - uwsgi
   - flask
 
+- hosts: cog4
+  user: root
+  roles:
+  - nginx
+  - python
+  - uwsgi
+  - flask
+  - cog4
+
 - hosts: postgres
   user: root
   roles:
