@@ -33,6 +33,10 @@
   - zsh
   - python-pycurl
 
+- name: install required system packages
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items: "{{ system_packages }}"
+
 - name: create users
   user: name={{ item.username }} shell={{ item.shell }} comment="{{ item.full_name }}" generate_ssh_key=yes
   with_items: users

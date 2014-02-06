@@ -1,11 +1,22 @@
 ---
-project_name = cog4
-project_repo = git@github.org:cogfor/cog4.git
+project_name: cog4
+repo_url: git@github.com:cogfor/cog4.git
 
-webapps_dir = /srv
-app_name = cog4
-instance_name = cog4
+webapps_dir: /srv
+app_name: cog4
+instance_name: cog4
+ip_addr: 95.85.60.135
+domain: testing.cogfor.com
 
 system_packages:
-  - build-essential
-
+ - build-essential
+ - build-essential
+ - gfortran
+ - libatlas-base-dev
+ - libatlas3gf-base
+ - python-dev
+ - libjpeg-dev
+ - libxml2-dev
+ - libfreetype6-dev
+ - libpng12-dev
+ - libxslt1-dev

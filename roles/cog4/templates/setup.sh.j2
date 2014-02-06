@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd {{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/src
+source {{ webapps_dir }}/{{ app_name }}/{{ instance_name }}/.virtualenvs/{{ app_name }}_{{ instance_name }}/bin/activate 
+python setup.py install

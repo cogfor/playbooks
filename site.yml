@@ -29,7 +29,7 @@
   - nginx
   - python
   - uwsgi
-  - flask
+  - mongodb
   - cog4
 
 - hosts: postgres

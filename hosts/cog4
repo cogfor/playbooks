@@ -1,4 +1,4 @@
-[flask:children]
+[cog4:children]
 staging
 
 # Deploy everything remote
@@ -13,6 +13,7 @@ staging
 local
 
 [production]
+# TODO: add server
 
 [staging]
 test.cogfor.com nickname=staging vm=0 branch=master
