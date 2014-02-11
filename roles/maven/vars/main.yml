@@ -1,0 +1,4 @@
+---
+maven:
+  # default for Ubuntu
+  install_dir: /usr/share/maven

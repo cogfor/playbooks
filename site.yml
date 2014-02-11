@@ -32,6 +32,13 @@
   - mongodb
   - cog4
 
+- hosts: cog4auth
+  user: root
+  roles:
+  - java
+  - maven
+  - openconext
+
 - hosts: postgres
   user: root
   roles:

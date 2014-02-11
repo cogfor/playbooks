@@ -1,0 +1,10 @@
+---
+- name: clone OpenConext Apis from GitHub
+  git: repo=https://github.com/OpenConextApps/apis.git dest=/opt/apis
+
+- name: install OpenConext Apis
+  command: mvn install chdir=/opt/apis
+
+- name: start OpenConext Apis demo
+  command: mvn jetty:run chdir=/opt/apis/apis-authorization-server-war
+

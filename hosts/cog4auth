@@ -1,0 +1,8 @@
+[cog4auth:children]
+staging
+
+[staging]
+testing.cogfor.com 
+
+[all:vars]
+env=cog4auth

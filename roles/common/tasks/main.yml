@@ -16,32 +16,33 @@
 
 - name: safe apt upgrade
   apt:  update_cache=yes upgrade=safe
+
 - name: base packages
   apt: pkg={{ item }} state=latest
   with_items:
-  - automake
-  - build-essential
-  - curl
-  - git
-  - htop
-  - mercurial
-  - molly-guard
-  - pkg-config
-  - sudo
-  - unattended-upgrades
-  - vim
-  - zsh
-  - python-pycurl
+    - automake
+    - build-essential
+    - curl
+    - git
+    - htop
+    - mercurial
+    - molly-guard
+    - pkg-config
+    - sudo
+    - unattended-upgrades
+    - vim
+    - zsh
+    - python-pycurl
 
 - name: install required system packages
   apt: pkg={{ item }} state=installed update-cache=yes
-  with_items: "{{ system_packages }}"
+  with_items: system_packages
+  when: system_packages is defined
 
 - name: create users
   user: name={{ item.username }} shell={{ item.shell }} comment="{{ item.full_name }}" generate_ssh_key=yes
   with_items: users
   when: env in item.env
-
 
 - name: add to sudo group
   authorized_key: user=root key="{{ item.1 }}" 
@@ -96,4 +97,12 @@
 - name: symlink motd
   file: src=/var/run/motd dest=/etc/motd state=link force=true
 
-
+- name: Set timezone variables
+  copy: content='Europe/Amsterdam'
+        dest=/etc/timezone
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  notify:
+    - update timezone

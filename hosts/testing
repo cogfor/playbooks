@@ -1,8 +1,0 @@
-[testing]
-33.33.33.33
-
-[flask:children]
-testing
-
-[all:vars]
-env=links
