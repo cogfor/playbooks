@@ -1,0 +1,11 @@
+---
+- name: create directory for log
+  file: path=/var/log/{{ app_name }} state=directory owner=www-data group=www-data
+
+- name: make sure that the ansible_backup directory exsists
+  file: path=/etc/nginx/servers/{{ app_name }} state=directory
+
+- name: create nginx site config
+  template: src=nginx_site.conf dest=/etc/nginx/servers/{{ app_name }}/{{ instance_name }}.conf
+  notify:
+    - restart nginx

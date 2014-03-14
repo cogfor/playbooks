@@ -1,0 +1,8 @@
+[cog4-www:children]
+staging
+
+[staging]
+web.cogfor.com
+
+[all:vars]
+env=cog4-www

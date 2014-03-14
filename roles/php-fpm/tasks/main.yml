@@ -1,0 +1,45 @@
+---
+- name: install php-fpm and deps 
+  apt: name={{ item }} state=present
+  with_items:
+    - php5-fpm
+    - php5-mysql
+    - php-apc
+    - php5-xmlrpc
+    - php-soap
+    - php5-gd
+    - php5-memcache
+    - memcached
+    - php5-curl
+    - php5-tidy
+    - php5-intl
+    - php-pear
+    - php5-imagick
+    - php5-imap
+    - php5-mcrypt
+    - php5-ming
+    - php5-ps
+    - php5-pspell
+    - php5-recode
+    - php5-snmp
+    - php5-sqlite
+    - php5-tidy
+    - php5-xsl
+    - php-apc
+    - varnish
+
+- name: add 100 MB APC cache
+  template: src=apc.ini dest=/etc/php5/fpm/conf.d/apc.ini
+
+- name: copy wordpress varnish vcl
+  template: src=wordpress.vcl dest=/etc/varnish/wordpress.vcl
+
+- name: let varnish use wordpress vcl
+  template: src=varnish.j2 dest=/etc/default/varnish
+
+- name: disable default pool
+  command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
+ 
+- name: copy php-fpm configuration
+  template: src=wordpress.conf dest=/etc/php5/fpm/pool.d/
+  notify: restart php-fpm

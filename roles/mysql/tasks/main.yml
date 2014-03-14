@@ -1,0 +1,50 @@
+---
+- name: install Mysql package
+  apt: name={{ item }} state=present
+  with_items:
+   - mysql-server
+   - mysql-client
+   - python-mysqldb
+
+- name: ensure mysql is running and starts on boot
+  service: name=mysql state=started enabled=true
+
+# Need to do this for idempotency, see
+# http://ansible.cc/docs/modules.html#mysql-user
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host=localhost password={{ mysql_root_password }}
+
+- name: MySQL | Config for easy access as root user
+  template: src=root-my-cnf.j2 dest=/root/.my.cnf owner=root mode=0600
+  tags: common
+
+- name: create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+
+- name: MySQL | Delete anonymous MySQL server user for $server_hostname
+  mysql_user: user="" host={{ domain }} state="absent"
+  tags: common
+
+- name: MySQL | Delete anonymous MySQL server user for localhost
+  mysql_user: user="" state="absent"
+  tags: common
+
+- name: MySQL | Secure the MySQL root user for IPV6 localhost (::1)
+  mysql_user: user="root" password={{ mysql_root_password }} host="::1"
+  tags: mysql_root
+
+- name: MySQL | Secure the MySQL root user for IPV4 localhost (127.0.0.1)
+  mysql_user: user="root" password={{ mysql_root_password }} host="127.0.0.1"
+  tags: mysql_root
+
+- name: MySQL | Secure the MySQL root user for localhost domain (localhost)
+  mysql_user: user="root" password={{ mysql_root_password }} host="localhost"
+  tags: mysql_root
+
+- name: MySQL | Secure the MySQL root user for $server_hostname domain
+  mysql_user: user="root" password={{ mysql_root_password }} host={{ domain }}
+  tags: mysql_root
+
+- name: MySQL | Remove the MySQL test database
+  action: mysql_db db=test state=absent
+  tags: common

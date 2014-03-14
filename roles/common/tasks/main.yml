@@ -24,6 +24,7 @@
     - build-essential
     - curl
     - git
+    - subversion
     - htop
     - mercurial
     - molly-guard

@@ -32,6 +32,15 @@
   - mongodb
   - cog4
 
+- hosts: cog4-www
+  user: root
+  roles:
+  - nginx
+  - cog4-www
+  - mysql
+  - wordpress
+  - php-fpm
+
 - hosts: cog4auth
   user: root
   roles:

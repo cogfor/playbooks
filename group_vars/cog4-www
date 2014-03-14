@@ -1,0 +1,29 @@
+---
+webapps_dir: /srv
+app_name: wordpress
+instance_name: cogfor.com
+domain: web.cogfor.com
+ip_addr: 95.85.60.135
+
+# Which version of Wordpress to deploy
+wp_version: 3.8.1
+wp_sha256sum: cf3dac69cd1810d8f4880b2c982fee869a0c56e1c4f793bbfc6d7021fd6da97c
+
+# mysql root
+mysql_root_password: topsecret
+
+# These are the Wordpress database settings
+wp_db_name: wordpress 
+wp_db_user: wordpress
+wp_db_password: secret
+
+# You shouldn't need to change this.
+mysql_port: 3306
+
+system_packages:
+ - build-essential
+ - libjpeg-dev
+ - libxml2-dev
+ - libfreetype6-dev
+ - libpng12-dev
+ - libxslt1-dev
